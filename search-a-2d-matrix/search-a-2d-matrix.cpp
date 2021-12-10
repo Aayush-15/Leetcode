@@ -1,36 +1,32 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>> &m, int t) {
-        // pointless edge case we still have to consider
-		if (!m.size() || !m[0].size()) return false;
-        // support variables
-		int row, l = 0, r = m.size() - 1, mid;
-        while (l < r) {
-            mid = (l + r) / 2;
-            // moving l up if needed
-            if (m[mid].back() < t) l = mid + 1;
-            // moving r down if needed
-            else if (m[mid][0] > t) r = mid - 1;
-            // we found our row!
-            else {
-                l = mid;
-                break;
-            };
-        }
-        // storing the value of the new found row
-        row = l;
-        // resetting l and r to run a binary search on the rows
-        l = 0;
-        r = m[0].size() - 1;
-        while (l <= r) {
-            mid = (l + r) / 2;
-            // moving l up if needed
-            if (m[row][mid] < t) l = mid + 1;
-            // moving r down if needed
-            else if (m[row][mid] > t) r = mid - 1;
-            // we found our value!
-            else return true;
+        // Just Treat The Matrix as a Sorted List Of Size -> N*M
+        //  0 1  2  3
+        //  4 5  6  7     ->Arr[xx]=Mat[xx/m][xx%m]
+        //  8 9 10 11
+        //n * m matrix convert to an array => matrix[x][y] => a[x * m + y]
+        //an array convert to n * m matrix => a[x] =>matrix[x / m][x % m];
+        int row=m.size();
+        int col=m[0].size();
+        int left=0;
+        int right=row*col-1;
+        while(left<=right)
+        {
+            int mid=(left+right)/2;
+            if(m[mid/col][mid%col]==t)
+            {
+                return true;
+            }
+            if(m[mid/col][mid%col]>t){
+                right=mid-1;
+            }
+            else
+            {
+                left=mid+1;
+            }
         }
         return false;
+        
     }
 };
