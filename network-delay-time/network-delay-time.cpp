@@ -43,3 +43,47 @@ public:
         return maxi;
     }
 };
+//Using Priority Queue
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k)
+    {
+        vector<pair<int,int>>adj[n+1];
+        for(int i=0;i<times.size();i++)
+        {
+            adj[times[i][0]].push_back({times[i][1],times[i][2]});
+        }
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>pq;
+        //Min-Heap Priority Queue
+        vector<int>dist(n+1,1e9);
+        dist[k]=0;
+        pq.push({0,k});
+        while(!pq.empty())
+        {
+            int curr_node=pq.top().second;
+            int curr_dist=pq.top().first;
+            pq.pop();
+            for(auto x:adj[curr_node])
+            {
+                //Now we will iterate over all the adjacent nodes to the current node and try to reduce the distance
+                int next=x.first;
+                int weight=x.second;
+                if(dist[next]>dist[curr_node]+weight)
+                {
+                    dist[next]=dist[curr_node]+weight;
+                    pq.push({dist[next],next});
+                }
+            }
+        }
+        int maxi=-1;
+        for(int i=1;i<=n;i++)
+        {
+            if(dist[i]==1e9)
+            {
+                return -1;
+            }
+            maxi=max(maxi,dist[i]);
+        }
+        return maxi;
+    }
+};
