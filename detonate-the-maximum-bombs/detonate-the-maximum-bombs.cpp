@@ -1,47 +1,69 @@
 class Solution {
 public:
-    //We can represent bombs using a directed graph - when a bomb i can detonate bomb j, there is an edge from i to j
-    
-    long long dis2(vector<vector<int>> &bombs, int i, int j) {
+    //We can represent bombs using a directed graph
+    //When a bomb i can detonate bomb j, there is an edge from i to j
+    long long calc_dist_square(vector<vector<int>>&bombs, int i, int j)
+    {
         long long x1 = bombs[i][0], y1 = bombs[i][1];
         long long x2 = bombs[j][0], y2 = bombs[j][1];
-        return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+        //long long dist=
+        return ((x1 - x2)) * ((x1 - x2)) + ((y1 - y2)) * ((y1 - y2));
     }
-    vector<int> g[110];
-    int maximumDetonation(vector<vector<int>>& bombs) 
+    int maximumDetonation(vector<vector<int>>& bombs)
     {
-        int n = bombs.size();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == j) continue;
-                long long d = dis2(bombs, i, j);
-                long long r = bombs[i][2];
-                if (r * r >= d) {
-                    g[i].push_back(j);
+        //Iterate over All the Pair of Bombs And Check
+        //If i can detonate j Insert i make directed edge from i to j
+        vector<vector<int> >adj(101);
+        for (int i = 0; i < bombs.size(); i++)
+        {
+            for (int j = 0; j < bombs.size(); j++)
+            {
+
+                if (i == j)
+                {
+                    continue;
+                }
+                //Checking if i can detonate jth bomb
+                long long radius = bombs[i][2];
+                long long dist = calc_dist_square(bombs, i, j);
+                if (radius * radius >= dist)
+                {
+                    adj[i].push_back(j);//if i can detonate the jth bomb
                 }
             }
         }
-        int res = 0;
-        for (int start = 0; start < n; start++) {
-            int vis[110];
-            memset(vis, 0, sizeof(vis));
-            queue<int> q;
-            q.push(start);
+        int ans = 0;
+        //Now for every bomb , Calculate the Number of bombs that can be diffused
+        for (int i = 0; i < bombs.size(); i++)
+        {
+            int start = i;
+            queue<int>que;
+            vector<int>vis(bombs.size());
             vis[start] = 1;
-            int tmp = 1;
-            while (!q.empty()) {
-                int u = q.front();
-                q.pop();
-                for (int to: g[u]) {
-                    if (!vis[to]) {
-                        q.push(to);
-                        vis[to] = 1;
-                        tmp++;
+            que.push(start);
+            while (!que.empty())
+            {
+                int curr_ = que.front();
+                que.pop();
+                for (auto child : adj[curr_])
+                {
+                    if (!vis[child])
+                    {
+                        vis[child] = 1;
+                        que.push(child);
                     }
                 }
             }
-            res = max(res, tmp);
+            int count = 0;
+            for (auto x : vis)
+            {
+                if (x)
+                {
+                    count++;
+                }
+            }
+            ans = max(ans, count);
         }
-        return res;
+        return ans;
     }
 };
