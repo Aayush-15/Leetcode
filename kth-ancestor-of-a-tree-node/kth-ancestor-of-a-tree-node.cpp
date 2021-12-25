@@ -6,6 +6,7 @@ class TreeAncestor {
 public:
     void dfs(int node,int par,vector<vector<int>>&Parent)
     {
+        //Because 0th Node parent is -1, Negative Index So Continue
         if(node==0)
         {
             Depth[node]=0;
@@ -17,6 +18,8 @@ public:
         
         Parent[node][0]=par;
         
+        //Filling The Sparse Table
+        //Rercurrance: Par[i][j]=Par[Par[i][j-1]][j-1]
         for(int j=1;j<LOG;j++)
         {
             Parent[node][j]=Parent[Parent[node][j-1]][j-1];
@@ -36,9 +39,11 @@ public:
         Depth.resize(n);
         LOG=ceil(log2(n));
         Parent=vector<vector<int>>(n,vector<int>(LOG,0));
+        
+        //Making The Adjacency List
         for(int i=0;i<parent.size();i++)
         {
-            if(i==0)
+            if(i==0)//Because 0th Node parent is -1, Negative Index So Continue
             {
                 continue;
             }
@@ -49,15 +54,6 @@ public:
         }
         Parent[0][0]=0;
         dfs(0,0,Parent);
-        // for(int i=0;i<n;i++)
-        // {
-        //     cout<<i<<"-> ";
-        //     for(int j=0;j<LOG;j++)
-        //     {
-        //         cout<<Parent[i][j]<<" ";
-        //     }
-        //     cout<<'\n';
-        // }
         
     }
     
