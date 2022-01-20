@@ -27,6 +27,10 @@ public:
         while(left<=right)
         {
             int mid=((left+right)/2);
+            //If we get a correct Answer for this current value of Mid, 
+            //Then all the values greater then mid will also satisfy the conditions
+            //But we have to minimize K, hence searh for the more optimal value of K 
+            //In the left searchspace
             if(is_possible(piles,mid,h))
             {
                 ans=mid;
