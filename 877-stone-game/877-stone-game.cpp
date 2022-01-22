@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //This Function will try to maximize value for Alice
     int helper(int l,int r,vector<vector<int>>&dp,vector<int>&piles)
     {
         if(l == r-1) return max(piles[l], piles[r]);
