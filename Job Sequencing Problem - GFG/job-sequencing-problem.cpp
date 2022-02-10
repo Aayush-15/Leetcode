@@ -58,11 +58,12 @@ class Solution
             }
         }
         return {count,max_profit};
+        vector<char>id;
         for(int i=0;i<n;i++)
         {
             if(slot[i])
             {
-                
+                id.push_back(arr[result[i]].id);
             }
         }
         
