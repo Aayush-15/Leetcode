@@ -2,7 +2,7 @@ class Solution {
 public:
     int maximumGroups(vector<int>& grades) 
     {
-        int l=1;
+        int l=0;
         int r=500;
         int total_students=grades.size();
         int ans=0;
