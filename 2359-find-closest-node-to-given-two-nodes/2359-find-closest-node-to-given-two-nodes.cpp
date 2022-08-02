@@ -1,48 +1,3 @@
-//JAI SHREE KRISHNA
-#include <bits/stdc++.h>
-using namespace std;
-#define ll              long long
-#define pb              push_back
-#define pii             pair<int,int>
-#define F               first
-#define S               second
-#define pbmax           priority_queue<int>//max heap
-#define pbmin           priority_queue<int, vector<int>, greater<int>>//min heap priority_queue
-#define lpi(i,a,b)      for(int i=a;i<b;i++)
-#define lpd(i,a,b)      for(int i=b;i>=a;i--)
-/****************************************************************************************/
-#ifndef ONLINE_JUDGE
-#define debug(x) cerr << #x <<" :"; _print(x);cerr<<'\n';
-#else
-#define debug(x)
-#endif
-void _print(int a) {cerr << a << " ";}
-void _print(long long  a) {cerr << a << " ";}
-void _print(char a) {cerr << a << " ";}
-void _print(double a) {cerr << a << " ";}
-void _print(float a) {cerr << a << " ";}
-void _print(string a) { cerr << a << " ";}
-template<class T> void _print(vector<T>v) {
-	cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";
-}
-template<class T> void _print(set<T>s)
-{
-	cerr << "[ "; for (T i : s) {_print(i); cerr << " ";} cerr << "]";
-}
-template<class T> void _print(multiset<T>s)
-{
-	cerr << "[ "; for (T i : s) {_print(i); cerr << " ";} cerr << "]";
-}
-template <class T, class V> void _print(pair <T, V> pair_p) {
-	cerr << "{"; _print(pair_p.first); cerr << ","; _print(pair_p.second); cerr << "}";
-}
-template <class T, class V> void _print(map <T, V> mp) {
-	cerr << "[ "; for (auto i : mp) {_print(i); cerr << " ";} cerr << "]";
-}
-/****************************************************************************************/
-
-
-
 class Solution {
 	void dfs(int node, int depth, vector<vector<int>>&graph, vector<int>&dist, vector<int>&vis)
 	{
@@ -73,7 +28,7 @@ public:
 		for (auto x : edges)
 		{
 			if (x != -1) {
-				Graph[cnt].pb(x);
+				Graph[cnt].push_back(x);
 			}
 			cnt++;
 
@@ -103,9 +58,6 @@ public:
 				}
 			}
 		}
-		// debug(dist1);
-		// debug(dist2);
-		// debug(ans);
 		return ans_node;
 	}
 };
