@@ -1,11 +1,10 @@
 class Solution {
 public:
-	void permute(int ind, string pattern, vector<int>&used, vector<int>&ans, vector<int>&ress, vector<int>&ans_mini)
+	void permute(int ind, string pattern, vector<int>&used, vector<int>&ans, vector<int>&ans_mini)
 	{
 		if (ind == pattern.size())
 		{
-			ress = ans;
-			ans_mini = min(ans_mini, ress);
+			ans_mini = min(ans_mini, ans);
 			return;
 		}
 		int curr = ans[ind];
@@ -18,7 +17,7 @@ public:
 				{
 					used[j] = 1;
 					ans[ind + 1] = j;
-					permute(ind + 1, pattern, used, ans, ress, ans_mini);
+					permute(ind + 1, pattern, used, ans, ans_mini);
 					used[j] = 0;
 					ans[ind + 1] = 0;
 				}
@@ -32,7 +31,7 @@ public:
 				{
 					used[j] = 1;
 					ans[ind + 1] = j;
-					permute(ind + 1, pattern, used, ans, ress, ans_mini);
+					permute(ind + 1, pattern, used, ans, ans_mini);
 					used[j] = 0;
 					ans[ind + 1] = 0;
 				}
@@ -43,14 +42,13 @@ public:
 		int n = pattern.size();
 		vector<int>ans(n + 1, 0);
 		vector<int>used(10, 0);
-		vector<int>ress(n + 1, 9);
 		vector<int>ans_mini(n + 1, 9);
 		for (int i = 1; i <= 9; i++)
 		{
 			int yy = i;
 			ans[0] = yy;
 			used[yy] = 1;
-			permute(0, pattern, used, ans, ress, ans_mini);
+			permute(0, pattern, used, ans, ans_mini);
 			ans[0] = 0;
 			used[yy] = 0;
 			
