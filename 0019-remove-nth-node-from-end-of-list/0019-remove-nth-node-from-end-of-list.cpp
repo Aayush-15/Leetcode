@@ -31,7 +31,7 @@ public:
         while(tmp!=NULL){
             if(curr_pos==target_index){
                 tmp->next=tmp->next->next;
-               // delete(curr_node->next);
+                
                 return head;
             }
             curr_pos++;
