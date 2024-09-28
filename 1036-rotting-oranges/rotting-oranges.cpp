@@ -10,12 +10,16 @@ public:
 
         int time=0;
         //Initially Rotten Oranges, Push to Queue
+        int fresh_cnt=0;
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
                 if(grid[i][j]==2){
                     que.push({i,j});
+                }
+                if(grid[i][j]==1){
+                    fresh_cnt++;
                 }
             }
         }
@@ -37,6 +41,7 @@ public:
                     if(new_x>=0 && new_x<n && new_y>=0 && new_y<m){
                         if(grid[new_x][new_y]==1){
                             grid[new_x][new_y]=2;
+                            fresh_cnt--;
                             que.push({new_x,new_y});
                         }
                     }
@@ -45,14 +50,8 @@ public:
             }
         }
 
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                if(grid[i][j]==1){
-                    return -1;
-                }
-            }
+        if(fresh_cnt>0){
+            return -1;
         }
         if(time==0){
             return 0;
