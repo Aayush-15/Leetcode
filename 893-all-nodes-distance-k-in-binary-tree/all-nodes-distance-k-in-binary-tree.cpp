@@ -28,8 +28,6 @@ public:
                 que.push(curr_node->right);
             }
         }
-        // Now I will start the BFS With Target Node And Traverse in All the 3 directions.(Parent and 2 child Nodes)
-        //  TO make sure the Node is not traversed again.I need to Keep track of visited Nodes.
         unordered_map<TreeNode*, bool>visited;
         int curr_distance = 0;
         visited[target] = true;
@@ -56,7 +54,7 @@ public:
                     visited[parent_mapping[curr_node]] = true;
                 }
             }
-            curr_distance++;//It indicates the Level of Nodes Present in The Queue
+            curr_distance++;
         }
         vector<int>disance_k_nodes;
         while (!que.empty()) {
@@ -65,6 +63,5 @@ public:
             disance_k_nodes.push_back(curr_node->val);
         }
         return disance_k_nodes;
-        
     }
 };
